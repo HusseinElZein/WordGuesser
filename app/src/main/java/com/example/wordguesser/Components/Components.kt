@@ -1,17 +1,25 @@
 package com.example.wordguesser.Components
 
+import android.annotation.SuppressLint
+import android.graphics.drawable.shapes.Shape
+import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.GridItemSpan
+import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.example.wordguesser.MVVM.Model.GameDataModel
 import com.example.wordguesser.MVVM.Model.Word
 import com.example.wordguesser.MVVM.ViewModel.MainGameViewModel
+import com.example.wordguesser.R
 
 @Composable
 fun InitialStartBackground() {
@@ -62,26 +71,31 @@ fun Letter(letter: String) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BuildWord(word: Word) {
-    Row() {
-        for (i in 0..word.letters.size - 1) {
+    LazyVerticalGrid(
+        cells = GridCells.Fixed(9),
+        content = {
 
-            val foundWord by remember { mutableStateOf(word.letters.get(i)) }
+            itemsIndexed(word.letters) { index, letter ->
+                val foundWord by remember { mutableStateOf(letter) }
+                if (foundWord.isFound.value) Letter(letter.letter) else Letter("")
+            }
+        },
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp),
+        verticalArrangement = Arrangement.spacedBy(3.dp),
+        horizontalArrangement = Arrangement.spacedBy(3.dp),
 
-            if (foundWord.isFound.value) Letter(word.letters.get(i).letter) else Letter("")
-            Spacer(modifier = Modifier.size(3.dp))
-        }
-    }
+        )
 }
 
 @Preview
 @Composable
 fun BuildWordTest() {
-    val game = GameDataModel()
-    BuildWord(word = game.getRandomWord())
+    val word = Word("Animal", "123456789112")
+    BuildWord(word = word)
 }
-
 
 /**
  * This is for whenever the user/player presses a letter on the keyboard*/
@@ -91,14 +105,17 @@ fun BuildWordTest() {
 fun LetterForKeyboard(
     letter: String,
     onClick: () -> Unit,
-    bgColor: MutableState<Color> = mutableStateOf(Color.LightGray)
+    bgColor: MutableState<Color> = mutableStateOf(Color.LightGray),
+    isCLicked: Boolean = false
 ) {
     Surface(
         modifier = Modifier.size(35.dp, 45.dp),
         color = bgColor.value,
         shape = RoundedCornerShape(size = 8.dp),
-        onClick = onClick,
-        indication = rememberRipple()
+        indication = rememberRipple(),
+        onClick = if (!isCLicked) onClick else {
+            {}
+        }
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -115,6 +132,7 @@ fun LetterForKeyboard(
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun CreateKeyboard(mainGameViewModel: MainGameViewModel) {
     val keyboardFirstRow = "QWERTYUIOP"
@@ -132,13 +150,35 @@ fun CreateKeyboard(mainGameViewModel: MainGameViewModel) {
 
             Row() {
                 for (i in 0..keyRow.length - 1) {
+                    val hasClickedLetter = remember { mutableStateOf(false) }
+                    val letterExistsInWord = remember { mutableStateOf(false) }
+
+                    val trueColor =
+                        if (hasClickedLetter.value && letterExistsInWord.value) remember {
+                            mutableStateOf(
+                                Color.Green
+                            )
+                        }
+                        else if (hasClickedLetter.value && !letterExistsInWord.value) remember {
+                            Log.d("d", "letter doesnt exist")
+                            mutableStateOf(
+                                Color.Red
+                            )
+                        } else {
+                            remember { mutableStateOf(Color.LightGray) }
+                        }
+
                     LetterForKeyboard(
                         letter = keyRow.get(i).toString(),
                         onClick = {
+                            hasClickedLetter.value = true
                             mainGameViewModel.onPressedKeyboardLetter(
                                 keyRow.get(i).toString(),
+                                letterExistsInWord
                             )
-                        }
+                        },
+                        bgColor = trueColor,
+                        isCLicked = hasClickedLetter.value
                     )
                     Spacer(modifier = Modifier.size(3.dp))
                 }
@@ -147,7 +187,6 @@ fun CreateKeyboard(mainGameViewModel: MainGameViewModel) {
         }
     }
 }
-
 
 @Composable
 fun ShowCategory(category: String) {
@@ -164,4 +203,100 @@ fun ShowCategory(category: String) {
 @Composable
 fun showCategoryPreview() {
     ShowCategory(category = "Religion")
+}
+
+@Composable
+fun ShowSpin(spin: String) {
+
+    Surface(
+        color = Color(0xFFB9AC82),
+        shape = RoundedCornerShape(10.dp),
+        modifier = Modifier.size(width = 140.dp, 42.dp)
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = spin,
+                color = Color.Black,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Cursive
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun ShowSpinPreview() {
+    ShowSpin("1000")
+}
+
+@Composable
+fun PressForSpin(onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            contentColor = Color(0xFFAC8923),
+            backgroundColor = Color(0xFFFFDD77),
+        )
+    ) {
+        Text(
+            text = "Spin", fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Serif
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PressForSpinPreview() {
+    PressForSpin { {} }
+}
+
+
+@Composable
+fun InsertHearts(lives: Int) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        for (i in 0..lives - 1) {
+
+            Image(
+                painter = painterResource(id = R.drawable.heart),
+                contentDescription = "",
+                modifier = Modifier.size(20.dp)
+            )
+            Spacer(modifier = Modifier.width(1.dp))
+        }
+    }
+}
+
+@Preview
+@Composable
+fun InsertHeartsPreview() {
+    InsertHearts(lives = 5)
+}
+
+
+@Composable
+fun ShowActualPoints() {
+    Surface(
+        modifier = Modifier
+            .height(40.dp)
+            .width(30.dp),
+        color = Color(0xFF707070),
+        shape = RoundedCornerShape(size = 8.dp),
+    ) {
+    }
+}
+
+@Preview
+@Composable
+fun ShowActualPointsPreview() {
+    ShowActualPoints()
 }

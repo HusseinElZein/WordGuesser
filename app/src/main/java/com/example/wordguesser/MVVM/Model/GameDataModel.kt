@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 
 class GameDataModel {
     //writing categories and each word into each category
-    var word = Word("Religion", "islam")
+    var word = Word("Religion", "abcdefghijklmnopqrstuvwxyzaeoeaa")
 
     //Getting a random Word:
     fun getRandomWord(): Word {
