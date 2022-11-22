@@ -7,7 +7,12 @@ data class GameUiState(
     var chosenWord: Word = Word(),
     var lives: Int = 5,
     var lastSpin: String = "",
-    var points: Int = 0
+    var lastSpinInt: Int = 0,
+    var points: Int = 0,
+    var guessedLetters: Int = 0,
+    var hasToSpin: Boolean = true,
+    var lostGame: Boolean = false,
+    var woneGame: Boolean = false
 )
 
 class Word(

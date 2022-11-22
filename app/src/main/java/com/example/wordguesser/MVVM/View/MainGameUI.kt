@@ -14,18 +14,16 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.wordguesser.Components.*
 import com.example.wordguesser.MVVM.ViewModel.MainGameViewModel
+import com.example.wordguesser.Navigation.Screen
 
-@SuppressLint("UnrememberedMutableState")
 @Composable
 fun MainGameUI(
     navController: NavHostController,
-    //mainGameViewModel: MainGameViewModel = MainGameViewModel()
     viewModel: MainGameViewModel = viewModel()
 ) {
     InitialStartBackground()
 
     val uiState by viewModel.uiState.collectAsState()
-
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -33,8 +31,6 @@ fun MainGameUI(
     ) {
         Spacer(modifier = Modifier.size(20.dp))
         Table(points = uiState.points, lives = uiState.lives)
-
-        Button(onClick = {viewModel.onStartGame()}){}
 
         Spacer(modifier = Modifier.size(80.dp))
         BuildWord(word = uiState.chosenWord)
@@ -55,10 +51,20 @@ fun MainGameUI(
         ) {
 
             ShowSpin(spin = uiState.lastSpin)
-            PressForSpin { viewModel.onSpinWheel() }
+            PressForSpin({ viewModel.onSpinWheel() }, uiState.hasToSpin)
         }
         Spacer(modifier = Modifier.height(18.dp))
-        CreateKeyboard(viewModel)
+        CreateKeyboard(viewModel, uiState.hasToSpin)
+    }
+
+    if (uiState.lostGame){
+        viewModel.setFalse()
+        navController.navigate(Screen.againLostScreen.route)
+    }
+
+    if(uiState.woneGame){
+        viewModel.setFalse()
+        navController.navigate(Screen.againWoneScreen.route)
     }
 }
 

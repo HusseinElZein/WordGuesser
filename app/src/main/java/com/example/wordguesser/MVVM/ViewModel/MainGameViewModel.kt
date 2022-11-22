@@ -19,13 +19,23 @@ class MainGameViewModel : ViewModel() {
     fun onStartGame() {
         _uiState.update { currentState ->
             currentState.copy(
-                chosenWord = BuildWordList().getWordList().random()
+                chosenWord = BuildWordList().getWordList().shuffled().random(),
             )
         }
     }
 
+    init {
+        onStartGame()
+    }
+
     /**Whenever player/user presses a letter on the keyboard*/
     fun onPressedKeyboardLetter(letterClicked: String, existsInWord: MutableState<Boolean>) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                hasToSpin = true
+            )
+        }
+
         if (_uiState.value.chosenWord.word.contains(letterClicked.lowercase())) {
             var foundCounter = 0
             for (letter in _uiState.value.chosenWord.letters) {
@@ -35,28 +45,78 @@ class MainGameViewModel : ViewModel() {
                     existsInWord.value = true
                 }
             }
+            _uiState.update { currentState ->
+                currentState.copy(
+                    points = uiState.value.points + (foundCounter * uiState.value.lastSpinInt),
+                    guessedLetters = uiState.value.guessedLetters + foundCounter
+                )
+            }
+        } else {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    lives = currentState.lives - 1
+                )
+            }
+        }
+
+        if (uiState.value.chosenWord.letters.size == uiState.value.guessedLetters) {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    woneGame = true
+                )
+            }
+        }
+
+        if (uiState.value.lives == 0) {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    lostGame = true
+                )
+            }
         }
     }
 
     /**Whenever player/user on spin wheel to get a random number*/
     fun onSpinWheel() {
 
+        _uiState.update { currentState ->
+            currentState.copy(
+                hasToSpin = false
+            )
+        }
+
         val rnds = (0..10).random()
+
+        Log.d("rnds", rnds.toString())
+
+        _uiState.update { currentState ->
+            currentState.copy(
+                lastSpinInt = 100 * rnds
+            )
+        }
+
+        if (rnds == 0) {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    points = 0,
+                )
+            }
+        }
 
         var lastSpin = ""
 
         when (rnds) {
             0 -> lastSpin = "Bankrupt"
-            1 -> lastSpin = "1000"
-            2 -> lastSpin = "500"
-            3 -> lastSpin = "600"
-            4 -> lastSpin = "700"
-            5 -> lastSpin = "800"
-            6 -> lastSpin = "900"
-            7 -> lastSpin = "100"
-            8 -> lastSpin = "200"
-            9 -> lastSpin = "300"
-            10 -> lastSpin = "400"
+            1 -> lastSpin = "100"
+            2 -> lastSpin = "200"
+            3 -> lastSpin = "300"
+            4 -> lastSpin = "400"
+            5 -> lastSpin = "500"
+            6 -> lastSpin = "600"
+            7 -> lastSpin = "700"
+            8 -> lastSpin = "800"
+            9 -> lastSpin = "900"
+            10 -> lastSpin = "1000"
             else -> lastSpin = "exception"
         }
 
@@ -66,4 +126,15 @@ class MainGameViewModel : ViewModel() {
             )
         }
     }
+
+    fun setFalse(){
+        _uiState.update { currentState ->
+            currentState.copy(
+                woneGame = false,
+                lostGame = false
+            )
+        }
+    }
 }
+
+

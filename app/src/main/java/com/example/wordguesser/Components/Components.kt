@@ -1,14 +1,11 @@
 package com.example.wordguesser.Components
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.shapes.Shape
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.GridItemSpan
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -105,14 +102,15 @@ fun LetterForKeyboard(
     letter: String,
     onClick: () -> Unit,
     bgColor: MutableState<Color> = mutableStateOf(Color.LightGray),
-    isCLicked: Boolean = false
+    isClicked: Boolean = false,
+    hasToSpin: Boolean
 ) {
     Surface(
         modifier = Modifier.size(35.dp, 45.dp),
         color = bgColor.value,
         shape = RoundedCornerShape(size = 8.dp),
-        indication = rememberRipple(),
-        onClick = if (!isCLicked) onClick else {
+        indication = if(!isClicked && !hasToSpin) rememberRipple() else null,
+        onClick = if (!isClicked && !hasToSpin) onClick else {
             {}
         }
     ) {
@@ -122,7 +120,7 @@ fun LetterForKeyboard(
         ) {
             Text(
                 text = letter,
-                color = Color.Black,
+                color = if(!hasToSpin) Color.Black else Color.LightGray,
                 fontSize = 25.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif
@@ -131,9 +129,12 @@ fun LetterForKeyboard(
     }
 }
 
-@SuppressLint("UnrememberedMutableState")
+
 @Composable
-fun CreateKeyboard(mainGameViewModel: MainGameViewModel) {
+fun CreateKeyboard(
+    mainGameViewModel: MainGameViewModel,
+    hasToSpin: Boolean
+) {
     val keyboardFirstRow = "QWERTYUIOP"
     val keyboardSecondRow = "ASDFGHJKL"
     val keyboardThirdRow = "ZXCVBNM"
@@ -176,7 +177,8 @@ fun CreateKeyboard(mainGameViewModel: MainGameViewModel) {
                             )
                         },
                         bgColor = trueColor,
-                        isCLicked = hasClickedLetter.value
+                        isClicked = hasClickedLetter.value,
+                        hasToSpin = hasToSpin
                     )
                     Spacer(modifier = Modifier.size(3.dp))
                 }
@@ -185,6 +187,14 @@ fun CreateKeyboard(mainGameViewModel: MainGameViewModel) {
         }
     }
 }
+
+@Preview
+@Composable
+fun CreateKeyboardPreview(){
+    CreateKeyboard(mainGameViewModel = MainGameViewModel(), hasToSpin = true)
+}
+
+
 
 @Composable
 fun ShowCategory(category: String) {
@@ -233,13 +243,14 @@ fun ShowSpinPreview() {
 }
 
 @Composable
-fun PressForSpin(onClick: () -> Unit) {
+fun PressForSpin(onClick: () -> Unit, hasToSpin: Boolean) {
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
             contentColor = Color(0xFFAC8923),
             backgroundColor = Color(0xFFFFDD77),
-        )
+        ),
+        enabled = hasToSpin
     ) {
         Text(
             text = "Spin", fontSize = 30.sp,
@@ -252,9 +263,8 @@ fun PressForSpin(onClick: () -> Unit) {
 @Preview
 @Composable
 fun PressForSpinPreview() {
-    PressForSpin { {} }
+    PressForSpin ({}, true)
 }
-
 
 @Composable
 fun InsertHearts(lives: Int) {
@@ -297,7 +307,7 @@ fun ShowActualPointsPreview() {
 }
 
 @Composable
-fun Table(points: Int, lives: Int){
+fun Table(points: Int, lives: Int) {
     Surface(
         modifier = Modifier
             .height(46.dp)
@@ -308,7 +318,9 @@ fun Table(points: Int, lives: Int){
         Column(modifier = Modifier.padding(start = 10.dp)) {
             ShowPoints(points = points)
         }
-        Column(modifier = Modifier.padding(start = 105.dp).padding(top = 18.dp)) {
+        Column(modifier = Modifier
+            .padding(start = 105.dp)
+            .padding(top = 18.dp)) {
             InsertHearts(lives = lives)
         }
     }
@@ -316,6 +328,6 @@ fun Table(points: Int, lives: Int){
 
 @Preview
 @Composable
-fun TablePreview(){
+fun TablePreview() {
     Table(points = 200, lives = 5)
 }
