@@ -1,40 +1,29 @@
 package com.example.wordguesser.MVVM.ViewModel
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.wordguesser.MVVM.Model.GameDataModel
-import com.example.wordguesser.MVVM.Model.Letter
-import com.example.wordguesser.MVVM.Model.Word
+import com.example.wordguesser.MVVM.Model.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 
 class MainGameViewModel : ViewModel() {
-    private val _chosenWord = mutableStateOf("")
-    private val _chosenCategory = mutableStateOf("")
-    private var _listOfLetters = emptyList<Letter>().toMutableList()
-    private val _lives = mutableStateOf(5)
-    private val _lastSpin = mutableStateOf("")
-    val lastSpin: State<String> = _lastSpin
-    private val _gameDataModel = mutableStateOf(GameDataModel())
 
-    val chosenWord: Word = _gameDataModel.value.word
+    private val _uiState = MutableStateFlow(GameUiState())
+    val uiState: StateFlow<GameUiState> = _uiState.asStateFlow()
 
     /**Whenever player/user starts a new game*/
     fun onStartGame() {
-        _lives.value = 5
-        val chosenWord = _gameDataModel.value.getRandomWord()
-        _chosenCategory.value = chosenWord.category
-        _chosenWord.value = chosenWord.word
-        _listOfLetters = chosenWord.letters
+        uiState.value.chosenWord = BuildWordList().getWordList().random()
     }
 
     /**Whenever player/user presses a letter on the keyboard*/
     fun onPressedKeyboardLetter(letterClicked: String, existsInWord: MutableState<Boolean>) {
-        if (_chosenWord.value.contains(letterClicked.lowercase())) {
+        if (_uiState.value.chosenWord.word.contains(letterClicked.lowercase())) {
             var foundCounter = 0
-            for (letter in _gameDataModel.value.word.letters) {
+            for (letter in _uiState.value.chosenWord.letters) {
                 if (!letter.isFound.value && letter.letter == letterClicked.lowercase()) {
                     foundCounter++
                     letter.isFound.value = true
@@ -47,25 +36,33 @@ class MainGameViewModel : ViewModel() {
     /**Whenever player/user on spin wheel to get a random number*/
     fun onSpinWheel() {
 
-        Log.d("you" ,"have just spun the wheel")
+        //Log.d("you", "have just spun the wheel, before changing: ${lastSpin.value}")
 
         val rnds = (0..10).random()
 
+        var lastSpin = ""
+
         when (rnds) {
-            0 -> _lastSpin.value = "Bankrupt"
-            1 -> _lastSpin.value = "1000"
-            2 -> _lastSpin.value = "500"
-            3 -> _lastSpin.value = "600"
-            4 -> _lastSpin.value = "700"
-            5 -> _lastSpin.value = "800"
-            6 -> _lastSpin.value = "900"
-            7 -> _lastSpin.value = "100"
-            8 -> _lastSpin.value = "200"
-            9 -> _lastSpin.value = "300"
-            10 -> _lastSpin.value = "400"
-            else -> _lastSpin.value = "exception"
+            0 -> lastSpin = "Bankrupt"
+            1 -> lastSpin = "1000"
+            2 -> lastSpin = "500"
+            3 -> lastSpin = "600"
+            4 -> lastSpin = "700"
+            5 -> lastSpin = "800"
+            6 -> lastSpin = "900"
+            7 -> lastSpin = "100"
+            8 -> lastSpin = "200"
+            9 -> lastSpin = "300"
+            10 -> lastSpin = "400"
+            else -> lastSpin = "exception"
         }
 
-        Log.d("you", "spun ${lastSpin.value}")
+        _uiState.update { currentState ->
+            currentState.copy(
+                lastSpin = lastSpin
+            )
+
+            //Log.d("you", "spun ${lastSpin")
+        }
     }
 }

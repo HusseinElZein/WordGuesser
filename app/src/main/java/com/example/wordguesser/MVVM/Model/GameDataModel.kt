@@ -3,19 +3,15 @@ package com.example.wordguesser.MVVM.Model
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 
-class GameDataModel {
-    //writing categories and each word into each category
-    var word = Word("Religion", "abcdefghijklmnopqrstuvwxyzaeoeaa")
-
-    //Getting a random Word:
-    fun getRandomWord(): Word {
-        return word
-    }
-}
+data class GameUiState(
+    var chosenWord: Word = Word(),
+    var lives: Int = 5,
+    var lastSpin: String = "",
+)
 
 class Word(
-    val category: String,
-    val word: String,
+    val category: String = "",
+    val word: String = "",
     var letters: MutableList<Letter> = emptyList<Letter>().toMutableList()
 ) {
     init {
@@ -30,9 +26,33 @@ class Letter(
     var isFound: MutableState<Boolean> = mutableStateOf(false)
 )
 
+class BuildWordList(){
 
-/**A test*/
-fun main() {
-    var game = GameDataModel()
+    fun getWordList(): List<Word>{
+        return listOf(
+            Word("Religion", "islam"),
+            Word("Religion", "christianity"),
+            Word("Religion", "sikhism"),
+            Word("Religion", "judaism"),
+
+            Word("Car", "lamborghini"),
+            Word("Car", "ferrari"),
+            Word("Car", "toyota"),
+            Word("Car", "skoda"),
+            Word("Car", "citroen"),
+            Word("Car", "cadillac"),
+            Word("Car", "lamborghini"),
+
+            Word("Country", "spain"),
+            Word("Country", "denmark"),
+            Word("Country", "ecuador"),
+            Word("Country", "sweden"),
+            Word("Country", "theunitedstatesofamerica"),
+        )
+    }
+
+    fun getRandomWord(int: Int): Word{
+        val rnds = (0..int - 1).random()
+        return getWordList()[rnds]
+    }
 }
-

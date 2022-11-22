@@ -25,7 +25,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.wordguesser.MVVM.Model.GameDataModel
 import com.example.wordguesser.MVVM.Model.Word
 import com.example.wordguesser.MVVM.ViewModel.MainGameViewModel
 import com.example.wordguesser.R
@@ -80,7 +79,7 @@ fun BuildWord(word: Word) {
 
             itemsIndexed(word.letters) { index, letter ->
                 val foundWord by remember { mutableStateOf(letter) }
-                if (foundWord.isFound.value) Letter(letter.letter) else Letter("")
+                if (!foundWord.isFound.value) Letter(letter.letter) else Letter("")
             }
         },
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp),
