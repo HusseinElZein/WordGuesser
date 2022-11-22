@@ -40,6 +40,14 @@ fun StartGameUI(navController: NavHostController) {
             fontFamily = FontFamily.Serif,
             textAlign = TextAlign.Center
         )
+        Text(
+            text = "By: Hussein El-Zein, S211904",
+            color = Color.White,
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Serif,
+            textAlign = TextAlign.Start
+        )
         Spacer(modifier = Modifier.size(240.dp))
 
         Button(
