@@ -40,6 +40,8 @@ class BuildWordList(){
             Word("Religion", "christianity"),
             Word("Religion", "sikhism"),
             Word("Religion", "judaism"),
+            Word("Religion", "thespaghettimonster"),
+            Word("Religion", "hinduism"),
 
             Word("Car", "lamborghini"),
             Word("Car", "ferrari"),
@@ -54,6 +56,27 @@ class BuildWordList(){
             Word("Country", "ecuador"),
             Word("Country", "sweden"),
             Word("Country", "theunitedstatesofamerica"),
+            Word("Country", "ecuador"),
+            Word("Country", "algeria"),
+
+            Word("Animal", "cat"),
+            Word("Animal", "dog"),
+            Word("Animal", "snake"),
+            Word("Animal", "bird"),
+            Word("Animal", "lion"),
+            Word("Animal", "tiger"),
+            Word("Animal", "panda"),
+            Word("Animal", "fish"),
+
+            Word("Rapper", "tupac"),
+            Word("Rapper", "gilli"),
+            Word("Rapper", "popsmoke"),
+            Word("Long real word", "dilinoleoylphosphatidylcholinec"),
+            Word("Long real word", "dimyristoylphosphatidylcholine"),
+            Word("Long real word", "hexakosioihexekontahexaphobics"),
+            Word("Long real word", "pharyngolaryngoesophagectomies"),
+            Word("Long real word", "pseudopseudohypoparathyroidism"),
+            Word("Long real word", "quinquagintaquadringentilliard")
         )
     }
 }
