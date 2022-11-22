@@ -1,5 +1,6 @@
 package com.example.wordguesser.MVVM.ViewModel
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import com.example.wordguesser.MVVM.Model.*
@@ -16,7 +17,11 @@ class MainGameViewModel : ViewModel() {
 
     /**Whenever player/user starts a new game*/
     fun onStartGame() {
-        uiState.value.chosenWord = BuildWordList().getWordList().random()
+        _uiState.update { currentState ->
+            currentState.copy(
+                chosenWord = BuildWordList().getWordList().random()
+            )
+        }
     }
 
     /**Whenever player/user presses a letter on the keyboard*/
@@ -35,8 +40,6 @@ class MainGameViewModel : ViewModel() {
 
     /**Whenever player/user on spin wheel to get a random number*/
     fun onSpinWheel() {
-
-        //Log.d("you", "have just spun the wheel, before changing: ${lastSpin.value}")
 
         val rnds = (0..10).random()
 
@@ -61,8 +64,6 @@ class MainGameViewModel : ViewModel() {
             currentState.copy(
                 lastSpin = lastSpin
             )
-
-            //Log.d("you", "spun ${lastSpin")
         }
     }
 }

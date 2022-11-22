@@ -7,6 +7,7 @@ data class GameUiState(
     var chosenWord: Word = Word(),
     var lives: Int = 5,
     var lastSpin: String = "",
+    var points: Int = 0
 )
 
 class Word(
@@ -49,10 +50,5 @@ class BuildWordList(){
             Word("Country", "sweden"),
             Word("Country", "theunitedstatesofamerica"),
         )
-    }
-
-    fun getRandomWord(int: Int): Word{
-        val rnds = (0..int - 1).random()
-        return getWordList()[rnds]
     }
 }

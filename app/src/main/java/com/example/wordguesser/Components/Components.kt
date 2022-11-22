@@ -79,7 +79,7 @@ fun BuildWord(word: Word) {
 
             itemsIndexed(word.letters) { index, letter ->
                 val foundWord by remember { mutableStateOf(letter) }
-                if (!foundWord.isFound.value) Letter(letter.letter) else Letter("")
+                if (foundWord.isFound.value) Letter(letter.letter) else Letter("")
             }
         },
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp),
@@ -159,7 +159,6 @@ fun CreateKeyboard(mainGameViewModel: MainGameViewModel) {
                             )
                         }
                         else if (hasClickedLetter.value && !letterExistsInWord.value) remember {
-                            Log.d("d", "letter doesnt exist")
                             mutableStateOf(
                                 Color.Red
                             )
@@ -264,7 +263,6 @@ fun InsertHearts(lives: Int) {
         horizontalArrangement = Arrangement.Center
     ) {
         for (i in 0..lives - 1) {
-
             Image(
                 painter = painterResource(id = R.drawable.heart),
                 contentDescription = "",
@@ -281,21 +279,43 @@ fun InsertHeartsPreview() {
     InsertHearts(lives = 5)
 }
 
-
 @Composable
-fun ShowActualPoints() {
-    Surface(
-        modifier = Modifier
-            .height(40.dp)
-            .width(30.dp),
-        color = Color(0xFF707070),
-        shape = RoundedCornerShape(size = 8.dp),
-    ) {
-    }
+fun ShowPoints(points: Int) {
+    Text(
+        text = "Points: $points",
+        fontSize = 17.sp,
+        fontWeight = FontWeight.Bold,
+        fontFamily = FontFamily.Serif,
+        color = Color.White
+    )
 }
 
 @Preview
 @Composable
 fun ShowActualPointsPreview() {
-    ShowActualPoints()
+    ShowPoints(200)
+}
+
+@Composable
+fun Table(points: Int, lives: Int){
+    Surface(
+        modifier = Modifier
+            .height(46.dp)
+            .width(220.dp),
+        color = Color(0xFF707070),
+        shape = RoundedCornerShape(size = 3.dp),
+    ) {
+        Column(modifier = Modifier.padding(start = 10.dp)) {
+            ShowPoints(points = points)
+        }
+        Column(modifier = Modifier.padding(start = 105.dp).padding(top = 18.dp)) {
+            InsertHearts(lives = lives)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun TablePreview(){
+    Table(points = 200, lives = 5)
 }

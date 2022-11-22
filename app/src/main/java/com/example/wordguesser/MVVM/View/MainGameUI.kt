@@ -2,6 +2,7 @@ package com.example.wordguesser.MVVM.View
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,14 +27,16 @@ fun MainGameUI(
     val uiState by viewModel.uiState.collectAsState()
 
 
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
     ) {
-        viewModel.onStartGame()
+        Spacer(modifier = Modifier.size(20.dp))
+        Table(points = uiState.points, lives = uiState.lives)
 
-        Spacer(modifier = Modifier.size(100.dp))
+        Button(onClick = {viewModel.onStartGame()}){}
+
+        Spacer(modifier = Modifier.size(80.dp))
         BuildWord(word = uiState.chosenWord)
         ShowCategory(category = uiState.chosenWord.category)
         Spacer(modifier = Modifier.size(240.dp))
