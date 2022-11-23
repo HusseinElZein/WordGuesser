@@ -13,13 +13,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.wordguesser.Components.*
+import com.example.wordguesser.MVVM.ViewModel.InfoViewModel
 import com.example.wordguesser.MVVM.ViewModel.MainGameViewModel
 import com.example.wordguesser.Navigation.Screen
 
 @Composable
 fun MainGameUI(
     navController: NavHostController,
-    viewModel: MainGameViewModel = viewModel()
+    viewModel: MainGameViewModel = viewModel(),
+    infoViewModel: InfoViewModel
 ) {
     InitialStartBackground()
 
@@ -59,11 +61,13 @@ fun MainGameUI(
 
     if (uiState.lostGame){
         viewModel.setFalse()
+        infoViewModel.updateInfo(viewModel.uiState.value)
         navController.navigate(Screen.againLostScreen.route)
     }
 
     if(uiState.woneGame){
         viewModel.setFalse()
+        infoViewModel.updateInfo(viewModel.uiState.value)
         navController.navigate(Screen.againWoneScreen.route)
     }
 }
@@ -72,5 +76,5 @@ fun MainGameUI(
 @Preview(showBackground = true)
 @Composable
 fun PreviewMainGameUI() {
-    MainGameUI(navController = rememberNavController())
+    MainGameUI(navController = rememberNavController(), infoViewModel = InfoViewModel())
 }

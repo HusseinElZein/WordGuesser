@@ -1,11 +1,14 @@
 package com.example.wordguesser.MVVM.View
 
+import android.icu.text.IDNA.Info
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,10 +21,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.wordguesser.Components.InitialStartBackground
+import com.example.wordguesser.MVVM.ViewModel.InfoViewModel
+import com.example.wordguesser.MVVM.ViewModel.MainGameViewModel
 import com.example.wordguesser.Navigation.Screen
 
 @Composable
-fun AgainLostGameUI(navController: NavHostController) {
+fun AgainLostGameUI(
+    navController: NavHostController,
+    viewModel: InfoViewModel
+) {
+
+    val uiState by viewModel.uiState.collectAsState()
 
     InitialStartBackground()
 
@@ -30,8 +40,6 @@ fun AgainLostGameUI(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-
-
         Text(
             text = "You've lost :(",
             color = Color(0xFFFC5656),
@@ -39,6 +47,19 @@ fun AgainLostGameUI(navController: NavHostController) {
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif
         )
+
+        Text(
+            text = "Points: ${uiState.points}\n" +
+                    "word: ${uiState.chosenWord.word}",
+            color = Color(0xFFFC5656),
+            fontSize = 40.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Serif,
+            textAlign = TextAlign.Center
+        )
+
+
+
         Spacer(modifier = Modifier.size(40.dp))
 
         Button(
@@ -65,7 +86,12 @@ fun AgainLostGameUI(navController: NavHostController) {
 }
 
 @Composable
-fun AgainWoneGameUI(navController: NavHostController) {
+fun AgainWoneGameUI(
+    navController: NavHostController,
+    viewModel: InfoViewModel
+) {
+    val uiState by viewModel.uiState.collectAsState()
+
     InitialStartBackground()
 
     Column(
@@ -77,6 +103,17 @@ fun AgainWoneGameUI(navController: NavHostController) {
             text = "Congrats! You've wone!",
             color = Color(0xFF56D672),
             fontSize = 60.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Serif,
+            textAlign = TextAlign.Center
+        )
+
+        Text(
+            text = "Points: ${uiState.points}\n" +
+                    "Word: ${uiState.chosenWord.word}\n" +
+                    "Lives: ${uiState.lives}",
+            color = Color(0xFF56D672),
+            fontSize = 40.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif,
             textAlign = TextAlign.Center
