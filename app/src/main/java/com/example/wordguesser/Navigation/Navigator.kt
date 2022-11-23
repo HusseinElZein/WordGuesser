@@ -24,8 +24,8 @@ fun NavigatorSetup() {
         composable(Screen.againLostScreen.route){
             AgainLostGameUI(navController = navController, infoViewModel)
         }
-        composable(Screen.againWoneScreen.route){
-            AgainWoneGameUI(navController = navController, infoViewModel)
+        composable(Screen.againWonScreen.route){
+            AgainWonGameUI(navController = navController, infoViewModel)
         }
     }
 

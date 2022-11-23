@@ -86,7 +86,7 @@ fun AgainLostGameUI(
 }
 
 @Composable
-fun AgainWoneGameUI(
+fun AgainWonGameUI(
     navController: NavHostController,
     viewModel: InfoViewModel
 ) {
@@ -100,7 +100,7 @@ fun AgainWoneGameUI(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Congrats! You've wone!",
+            text = "Congrats! You've won!",
             color = Color(0xFF56D672),
             fontSize = 60.sp,
             fontWeight = FontWeight.Bold,

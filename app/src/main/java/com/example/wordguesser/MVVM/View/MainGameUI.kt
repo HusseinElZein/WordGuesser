@@ -1,6 +1,7 @@
 package com.example.wordguesser.MVVM.View
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.runtime.*
@@ -65,11 +66,13 @@ fun MainGameUI(
         navController.navigate(Screen.againLostScreen.route)
     }
 
-    if(uiState.woneGame){
+    if(uiState.wonGame){
         viewModel.setFalse()
         infoViewModel.updateInfo(viewModel.uiState.value)
-        navController.navigate(Screen.againWoneScreen.route)
+        navController.navigate(Screen.againWonScreen.route)
     }
+
+
 }
 
 

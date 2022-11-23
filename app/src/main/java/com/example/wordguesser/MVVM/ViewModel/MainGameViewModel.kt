@@ -62,7 +62,7 @@ class MainGameViewModel : ViewModel() {
         if (uiState.value.chosenWord.letters.size == uiState.value.guessedLetters) {
             _uiState.update { currentState ->
                 currentState.copy(
-                    woneGame = true
+                    wonGame = true
                 )
             }
         }
@@ -130,7 +130,7 @@ class MainGameViewModel : ViewModel() {
     fun setFalse(){
         _uiState.update { currentState ->
             currentState.copy(
-                woneGame = false,
+                wonGame = false,
                 lostGame = false
             )
         }

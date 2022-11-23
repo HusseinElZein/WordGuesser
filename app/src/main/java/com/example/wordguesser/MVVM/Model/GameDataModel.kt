@@ -12,7 +12,7 @@ data class GameUiState(
     var guessedLetters: Int = 0,
     var hasToSpin: Boolean = true,
     var lostGame: Boolean = false,
-    var woneGame: Boolean = false
+    var wonGame: Boolean = false
 )
 
 class Word(
