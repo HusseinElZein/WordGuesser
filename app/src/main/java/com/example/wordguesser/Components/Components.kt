@@ -14,8 +14,10 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -36,11 +38,20 @@ fun InitialStartBackground() {
                 Brush.verticalGradient(
                     colors = listOf(
                         Color(0xFF858585),
-                        Color(0xFFB2BFAF)
+                        Color(0xFF6B6B6B)
                     )
                 )
             )
     )
+    /*Image(
+        painter = painterResource(id = R.drawable.background),
+        contentDescription = "",
+        modifier = Modifier.fillMaxSize().blur(40.dp).size(600.dp),
+        contentScale = ContentScale.Crop,
+        alpha = 0.45f
+    )
+
+     */
 }
 
 /**
@@ -109,7 +120,7 @@ fun LetterForKeyboard(
         modifier = Modifier.size(35.dp, 45.dp),
         color = bgColor.value,
         shape = RoundedCornerShape(size = 8.dp),
-        indication = if(!isClicked && !hasToSpin) rememberRipple() else null,
+        indication = if (!isClicked && !hasToSpin) rememberRipple() else null,
         onClick = if (!isClicked && !hasToSpin) onClick else {
             {}
         }
@@ -120,7 +131,7 @@ fun LetterForKeyboard(
         ) {
             Text(
                 text = letter,
-                color = if(!hasToSpin) Color.Black else Color.LightGray,
+                color = if (!hasToSpin) Color.Black else Color.LightGray,
                 fontSize = 25.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif
@@ -190,10 +201,9 @@ fun CreateKeyboard(
 
 @Preview
 @Composable
-fun CreateKeyboardPreview(){
+fun CreateKeyboardPreview() {
     CreateKeyboard(mainGameViewModel = MainGameViewModel(), hasToSpin = true)
 }
-
 
 
 @Composable
@@ -263,7 +273,7 @@ fun PressForSpin(onClick: () -> Unit, hasToSpin: Boolean) {
 @Preview
 @Composable
 fun PressForSpinPreview() {
-    PressForSpin ({}, true)
+    PressForSpin({}, true)
 }
 
 @Composable
@@ -318,9 +328,11 @@ fun Table(points: Int, lives: Int) {
         Column(modifier = Modifier.padding(start = 10.dp)) {
             ShowPoints(points = points)
         }
-        Column(modifier = Modifier
-            .padding(start = 105.dp)
-            .padding(top = 18.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(start = 105.dp)
+                .padding(top = 18.dp)
+        ) {
             InsertHearts(lives = lives)
         }
     }
