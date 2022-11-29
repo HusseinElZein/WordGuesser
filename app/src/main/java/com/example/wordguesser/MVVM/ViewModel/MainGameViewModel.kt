@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlin.random.Random
 
 
 class MainGameViewModel : ViewModel() {
@@ -85,27 +86,11 @@ class MainGameViewModel : ViewModel() {
             )
         }
 
-        val rnds = (0..10).random()
-
-        Log.d("rnds", rnds.toString())
-
-        _uiState.update { currentState ->
-            currentState.copy(
-                lastSpinInt = 100 * rnds
-            )
-        }
-
-        if (rnds == 0) {
-            _uiState.update { currentState ->
-                currentState.copy(
-                    points = 0,
-                )
-            }
-        }
+        val rndm = (0..10).random()
 
         var lastSpin = ""
 
-        when (rnds) {
+        when (rndm) {
             0 -> lastSpin = "Bankrupt"
             1 -> lastSpin = "100"
             2 -> lastSpin = "200"
@@ -125,9 +110,25 @@ class MainGameViewModel : ViewModel() {
                 lastSpin = lastSpin
             )
         }
+
+
+        _uiState.update { currentState ->
+            currentState.copy(
+                lastSpinInt = 100 * rndm
+            )
+        }
+
+
+        if (rndm == 0) {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    points = 0,
+                )
+            }
+        }
     }
 
-    fun setFalse(){
+    fun setFalse() {
         _uiState.update { currentState ->
             currentState.copy(
                 wonGame = false,

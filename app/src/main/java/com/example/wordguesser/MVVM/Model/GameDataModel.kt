@@ -33,7 +33,6 @@ class Letter(
 )
 
 class BuildWordList(){
-
     fun getWordList(): List<Word>{
         return listOf(
             Word("Religion", "islam"),

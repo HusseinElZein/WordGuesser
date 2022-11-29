@@ -53,8 +53,8 @@ fun MainGameUI(
             horizontalArrangement = Arrangement.Center
         ) {
 
-            ShowSpin(spin = uiState.lastSpin)
-            PressForSpin({ viewModel.onSpinWheel() }, uiState.hasToSpin)
+            ShowSpin(spin = uiState.lastSpin, { viewModel.onSpinWheel() }, uiState.hasToSpin)
+
         }
         Spacer(modifier = Modifier.height(18.dp))
         CreateKeyboard(viewModel, uiState.hasToSpin)
@@ -71,8 +71,6 @@ fun MainGameUI(
         infoViewModel.updateInfo(viewModel.uiState.value)
         navController.navigate(Screen.againWonScreen.route)
     }
-
-
 }
 
 

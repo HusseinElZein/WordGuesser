@@ -25,6 +25,12 @@ import com.example.wordguesser.MVVM.ViewModel.InfoViewModel
 import com.example.wordguesser.MVVM.ViewModel.MainGameViewModel
 import com.example.wordguesser.Navigation.Screen
 
+@Preview(showBackground = true)
+@Composable
+fun AgainLostGameUIPreciew(){
+    AgainWonGameUI(navController = rememberNavController(), viewModel = InfoViewModel())
+}
+
 @Composable
 fun AgainLostGameUI(
     navController: NavHostController,
@@ -42,7 +48,7 @@ fun AgainLostGameUI(
     ) {
         Text(
             text = "You've lost :(",
-            color = Color(0xFFFC5656),
+            color = Color(0xFFE48484),
             fontSize = 55.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif
@@ -51,8 +57,8 @@ fun AgainLostGameUI(
         Text(
             text = "Points: ${uiState.points}\n" +
                     "word: ${uiState.chosenWord.word}",
-            color = Color(0xFFFC5656),
-            fontSize = 40.sp,
+            color = Color(0xFFE08585),
+            fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif,
             textAlign = TextAlign.Center
@@ -101,7 +107,7 @@ fun AgainWonGameUI(
     ) {
         Text(
             text = "Congrats! You've won!",
-            color = Color(0xFF56D672),
+            color = Color(0xFF7CBE8A),
             fontSize = 60.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif,
@@ -112,8 +118,8 @@ fun AgainWonGameUI(
             text = "Points: ${uiState.points}\n" +
                     "Word: ${uiState.chosenWord.word}\n" +
                     "Lives: ${uiState.lives}",
-            color = Color(0xFF56D672),
-            fontSize = 40.sp,
+            color = Color(0xFF56AC69),
+            fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif,
             textAlign = TextAlign.Center

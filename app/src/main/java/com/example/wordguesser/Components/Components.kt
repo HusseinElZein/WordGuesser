@@ -1,9 +1,11 @@
 package com.example.wordguesser.Components
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.InteractionSource
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
@@ -15,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -43,15 +46,16 @@ fun InitialStartBackground() {
                 )
             )
     )
-    /*Image(
-        painter = painterResource(id = R.drawable.background),
+    Image(
+        painter = painterResource(id = R.drawable.bground),
         contentDescription = "",
-        modifier = Modifier.fillMaxSize().blur(40.dp).size(600.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .blur(4.dp)
+            .size(600.dp),
         contentScale = ContentScale.Crop,
-        alpha = 0.45f
+        alpha = 0.65f
     )
-
-     */
 }
 
 /**
@@ -224,23 +228,43 @@ fun showCategoryPreview() {
 }
 
 @Composable
-fun ShowSpin(spin: String) {
+fun ShowSpin(spin: String, onClick: () -> Unit, hasToSpin: Boolean) {
 
     Surface(
-        color = Color(0xFFB9AC82),
+        color = Color.Transparent,
         shape = RoundedCornerShape(10.dp),
-        modifier = Modifier.size(width = 140.dp, 42.dp)
+        modifier = Modifier.size(width = 100.dp, 100.dp)
     ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            SeeCircle(onClick, hasToSpin)
+        }
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = spin,
-                color = Color.Black,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
+                color = Color(0xFF000000),
+                fontSize = 28.sp,
+                fontWeight = FontWeight.ExtraBold,
                 fontFamily = FontFamily.Cursive
+            )
+        }
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = spin,
+                color = Color(0xFFFFFFFF),
+                fontSize = 26.sp,
+                fontWeight = FontWeight.ExtraBold,
+                fontFamily = FontFamily.Cursive,
             )
         }
     }
@@ -249,10 +273,10 @@ fun ShowSpin(spin: String) {
 @Preview
 @Composable
 fun ShowSpinPreview() {
-    ShowSpin("1000")
+    ShowSpin("1000", {}, true)
 }
 
-@Composable
+/*@Composable
 fun PressForSpin(onClick: () -> Unit, hasToSpin: Boolean) {
     Button(
         onClick = onClick,
@@ -270,11 +294,15 @@ fun PressForSpin(onClick: () -> Unit, hasToSpin: Boolean) {
     }
 }
 
-@Preview
+ */
+
+/*@Preview
 @Composable
 fun PressForSpinPreview() {
     PressForSpin({}, true)
 }
+
+ */
 
 @Composable
 fun InsertHearts(lives: Int) {
@@ -342,4 +370,33 @@ fun Table(points: Int, lives: Int) {
 @Composable
 fun TablePreview() {
     Table(points = 200, lives = 5)
+}
+
+
+@Composable
+fun SeeCircle(onClick: () -> Unit, hasToSpin: Boolean) {
+
+    var float by remember { mutableStateOf(0f) }
+    val angle by animateFloatAsState(
+        targetValue = float,
+        animationSpec = tween(durationMillis = 1000)
+    )
+
+    Image(
+        painter = painterResource(id = R.drawable.circle),
+        contentDescription = "",
+        modifier = Modifier
+            .rotate(angle)
+            .size(140.dp)
+            .clickable(indication = null, interactionSource = MutableInteractionSource()) {
+                if (hasToSpin) {
+                    val rnds = (0..10).random()
+                    float += 2160 + 11 * rnds
+                    onClick.invoke()
+                }
+            },
+        alpha = 0.65f,
+
+        )
+
 }
