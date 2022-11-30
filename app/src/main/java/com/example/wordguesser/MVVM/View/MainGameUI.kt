@@ -26,6 +26,14 @@ fun MainGameUI(
 ) {
     InitialStartBackground()
 
+    Column() {
+        Spacer(modifier = Modifier.size(20.dp))
+        PauseButton({
+            viewModel.reload()
+            navController.navigate(Screen.PauseScreen.route)
+        })
+    }
+
     val uiState by viewModel.uiState.collectAsState()
 
     Column(

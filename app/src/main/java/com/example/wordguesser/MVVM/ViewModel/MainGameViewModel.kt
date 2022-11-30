@@ -2,6 +2,7 @@ package com.example.wordguesser.MVVM.ViewModel
 
 import android.util.Log
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.wordguesser.MVVM.Model.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +19,7 @@ class MainGameViewModel : ViewModel() {
 
     /**Whenever player/user starts a new game*/
     fun onStartGame() {
+
         _uiState.update { currentState ->
             currentState.copy(
                 chosenWord = BuildWordList().getWordList().shuffled().random(),
@@ -30,7 +32,7 @@ class MainGameViewModel : ViewModel() {
     }
 
     /**Whenever player/user presses a letter on the keyboard*/
-    fun onPressedKeyboardLetter(letterClicked: String, existsInWord: MutableState<Boolean>) {
+    fun onPressedKeyboardLetter(letterClicked: String, letterExistsInWord: MutableState<Boolean>) {
         _uiState.update { currentState ->
             currentState.copy(
                 hasToSpin = true
@@ -43,13 +45,13 @@ class MainGameViewModel : ViewModel() {
                 if (!letter.isFound.value && letter.letter == letterClicked.lowercase()) {
                     foundCounter++
                     letter.isFound.value = true
-                    existsInWord.value = true
+                    letterExistsInWord.value = true
                 }
             }
             _uiState.update { currentState ->
                 currentState.copy(
                     points = uiState.value.points + (foundCounter * uiState.value.lastSpinInt),
-                    guessedLetters = uiState.value.guessedLetters + foundCounter
+                    guessedLetters = uiState.value.guessedLetters + foundCounter,
                 )
             }
         } else {
@@ -136,6 +138,30 @@ class MainGameViewModel : ViewModel() {
             )
         }
     }
+
+    fun newKeyLetter(): KeyLetter {
+        if (!uiState.value.gameStarted) {
+            _uiState.value.keyLetters.add(KeyLetter())
+
+            _uiState.value.reached++
+
+            if (_uiState.value.reached == 26) {
+                _uiState.value.gameStarted = true
+                reload()
+                Log.d("game", "starter")
+            }
+            return _uiState.value.keyLetters.last()
+        }
+
+        Log.d("returnerer reached", _uiState.value.reached.toString())
+
+        return _uiState.value.keyLetters.get(_uiState.value.reached++)
+    }
+
+    fun reload() {
+        _uiState.value.reached = 0
+    }
+
 }
 
 

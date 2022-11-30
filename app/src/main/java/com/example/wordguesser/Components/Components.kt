@@ -1,6 +1,7 @@
 package com.example.wordguesser.Components
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.*
@@ -12,6 +13,8 @@ import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,6 +24,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -28,6 +32,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.wordguesser.MVVM.Model.KeyLetter
 import com.example.wordguesser.MVVM.Model.Word
 import com.example.wordguesser.MVVM.ViewModel.MainGameViewModel
 import com.example.wordguesser.R
@@ -100,7 +106,7 @@ fun BuildWord(word: Word) {
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(3.dp),
         horizontalArrangement = Arrangement.spacedBy(3.dp),
-        )
+    )
 }
 
 @Preview
@@ -167,8 +173,9 @@ fun CreateKeyboard(
 
             Row() {
                 for (i in 0..keyRow.length - 1) {
-                    val hasClickedLetter = remember { mutableStateOf(false) }
-                    val letterExistsInWord = remember { mutableStateOf(false) }
+                    val keyLetter = remember{mainGameViewModel.newKeyLetter()}
+                    val hasClickedLetter = remember { keyLetter.isClicked }
+                    val letterExistsInWord = remember { keyLetter.isFoundInWord }
 
                     val trueColor =
                         if (hasClickedLetter.value && letterExistsInWord.value) remember {
@@ -316,7 +323,8 @@ fun InsertHearts(lives: Int) {
             Image(
                 painter = painterResource(id = R.drawable.heart),
                 contentDescription = "",
-                modifier = Modifier.size(20.dp)
+                modifier = Modifier.size(20.dp),
+                colorFilter = ColorFilter.tint(Color(0xFFE73E0B))
             )
             Spacer(modifier = Modifier.width(1.dp))
         }
@@ -351,8 +359,7 @@ fun Table(points: Int, lives: Int) {
     Surface(
         modifier = Modifier
             .height(46.dp)
-            .width(220.dp)
-        ,
+            .width(220.dp),
         color = Color(0xFFDCF9D7),
         shape = RoundedCornerShape(size = 10.dp),
     ) {
@@ -398,6 +405,21 @@ fun SeeCircle(onClick: () -> Unit, hasToSpin: Boolean) {
                     onClick.invoke()
                 }
             },
-        )
+    )
+}
 
+
+@Composable
+fun PauseButton(onClick: () -> Unit) {
+    Image(
+        painter = painterResource(id = R.drawable.pause),
+        contentDescription = "",
+        modifier = Modifier
+            .size(50.dp)
+            .padding(
+                start = 15.dp,
+            )
+            .clickable { onClick.invoke() },
+        colorFilter = ColorFilter.tint(Color(0xFF143600))
+    )
 }

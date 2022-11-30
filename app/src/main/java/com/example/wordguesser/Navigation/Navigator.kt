@@ -27,6 +27,9 @@ fun NavigatorSetup() {
         composable(Screen.againWonScreen.route){
             AgainWonGameUI(navController = navController, infoViewModel)
         }
+        composable(Screen.PauseScreen.route){
+            PauseUI(navController = navController)
+        }
     }
 
 }

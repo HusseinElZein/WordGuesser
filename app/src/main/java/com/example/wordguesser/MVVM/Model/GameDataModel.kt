@@ -12,7 +12,10 @@ data class GameUiState(
     var guessedLetters: Int = 0,
     var hasToSpin: Boolean = true,
     var lostGame: Boolean = false,
-    var wonGame: Boolean = false
+    var wonGame: Boolean = false,
+    var gameStarted: Boolean = false,
+    var reached: Int = 0,
+    var keyLetters: MutableList<KeyLetter> = emptyList<KeyLetter>().toMutableList()
 )
 
 class Word(
@@ -30,6 +33,11 @@ class Word(
 class Letter(
     var letter: String,
     var isFound: MutableState<Boolean> = mutableStateOf(false)
+)
+
+class KeyLetter(
+    var isFoundInWord: MutableState<Boolean> = mutableStateOf(false),
+    var isClicked: MutableState<Boolean> = mutableStateOf(false)
 )
 
 class BuildWordList(){
@@ -88,9 +96,6 @@ class BuildWordList(){
             Word("Historical event", "medievalperiod"),
             Word("Historical event", "roman"),
             Word("Historical event", "modernperiod"),
-
-
-
         )
     }
 }
