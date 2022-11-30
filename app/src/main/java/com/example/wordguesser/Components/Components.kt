@@ -139,7 +139,7 @@ fun LetterForKeyboard(
         ) {
             Text(
                 text = letter,
-                color = if (!hasToSpin) Color(0xFF054A75) else Color.LightGray,
+                color = if (!hasToSpin) Color(0xFF054A75) else Color(0xFFE4E3D6),
                 fontSize = 25.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif
