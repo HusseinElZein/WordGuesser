@@ -2,6 +2,7 @@ package com.example.wordguesser.MVVM.View
 
 import android.icu.text.IDNA.Info
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
@@ -78,7 +79,8 @@ fun AgainLostGameUI(
                 backgroundColor = Color(0xFFDCF9D7),
                 contentColor = Color(0xFF054A75)
             ),
-            modifier = Modifier.size(175.dp, 50.dp)
+            modifier = Modifier.size(175.dp, 50.dp),
+            shape = RoundedCornerShape(size = 10.dp),
         )
         {
             Text(
@@ -137,6 +139,7 @@ fun AgainWonGameUI(
                 backgroundColor = Color(0xFFDCF9D7),
                 contentColor = Color(0xFF054A75)
             ),
+            shape = RoundedCornerShape(size = 10.dp),
             modifier = Modifier.size(175.dp, 50.dp)
         )
         {

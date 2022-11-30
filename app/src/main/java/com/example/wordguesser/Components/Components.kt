@@ -392,7 +392,7 @@ fun SeeCircle(onClick: () -> Unit, hasToSpin: Boolean) {
         contentDescription = "",
         modifier = Modifier
             .rotate(angle)
-            .size(140.dp)
+            .size(160.dp)
             .clickable(indication = null, interactionSource = MutableInteractionSource()) {
                 if (hasToSpin) {
                     val rnds = (0..10).random()

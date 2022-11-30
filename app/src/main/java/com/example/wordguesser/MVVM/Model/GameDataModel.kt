@@ -75,7 +75,22 @@ class BuildWordList(){
             Word("Long real word", "hexakosioihexekontahexaphobics"),
             Word("Long real word", "pharyngolaryngoesophagectomies"),
             Word("Long real word", "pseudopseudohypoparathyroidism"),
-            Word("Long real word", "quinquagintaquadringentilliard")
+            Word("Long real word", "quinquagintaquadringentilliard"),
+            Word("Sport", "football"),
+            Word("Sport", "soccer"),
+            Word("Sport", "tennis"),
+            Word("Sport", "swimming"),
+            Word("Sport", "football"),
+
+
+            Word("Historical event", "worldwartwo"),
+            Word("Historical event", "worldwarone"),
+            Word("Historical event", "medievalperiod"),
+            Word("Historical event", "roman"),
+            Word("Historical event", "modernperiod"),
+
+
+
         )
     }
 }
