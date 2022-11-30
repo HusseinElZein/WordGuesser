@@ -68,7 +68,7 @@ fun InitialStartBackground() {
 fun Letter(letter: String) {
     Surface(
         modifier = Modifier.size(30.dp, 40.dp),
-        color = Color(0xFFD8F3FF),
+        color = Color(0xFFDCF9D7),
         shape = RoundedCornerShape(size = 8.dp),
     ) {
         Column(
