@@ -16,6 +16,7 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
@@ -40,13 +41,14 @@ fun InitialStartBackground() {
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFF858585),
-                        Color(0xFF6B6B6B)
+                        Color(0xFF4FB14E),
+                        Color(0xFF009F6B),
+                        Color(0xFF008B7C),
                     )
                 )
             )
     )
-    Image(
+    /*Image(
         painter = painterResource(id = R.drawable.bground),
         contentDescription = "",
         modifier = Modifier
@@ -56,6 +58,8 @@ fun InitialStartBackground() {
         contentScale = ContentScale.Crop,
         alpha = 0.65f
     )
+
+     */
 }
 
 /**
@@ -64,7 +68,7 @@ fun InitialStartBackground() {
 fun Letter(letter: String) {
     Surface(
         modifier = Modifier.size(30.dp, 40.dp),
-        color = Color.LightGray,
+        color = Color(0xFFD8F3FF),
         shape = RoundedCornerShape(size = 8.dp),
     ) {
         Column(
@@ -73,7 +77,7 @@ fun Letter(letter: String) {
         ) {
             Text(
                 text = letter,
-                color = Color.Black,
+                color = Color(0xFF054A75),
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif
@@ -135,7 +139,7 @@ fun LetterForKeyboard(
         ) {
             Text(
                 text = letter,
-                color = if (!hasToSpin) Color.Black else Color.LightGray,
+                color = if (!hasToSpin) Color(0xFF054A75) else Color.LightGray,
                 fontSize = 25.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif
@@ -171,15 +175,15 @@ fun CreateKeyboard(
                     val trueColor =
                         if (hasClickedLetter.value && letterExistsInWord.value) remember {
                             mutableStateOf(
-                                Color.Green
+                                Color(0xFFB0FFA7)
                             )
                         }
                         else if (hasClickedLetter.value && !letterExistsInWord.value) remember {
                             mutableStateOf(
-                                Color.Red
+                                Color(0xFFF97825)
                             )
                         } else {
-                            remember { mutableStateOf(Color.LightGray) }
+                            remember { mutableStateOf(Color(0xFFD8F3FF)) }
                         }
 
                     LetterForKeyboard(
@@ -214,9 +218,9 @@ fun CreateKeyboardPreview() {
 fun ShowCategory(category: String) {
     Text(
         text = "Category: $category",
-        color = Color.Black,
+        color = Color(0xFF003400),
         fontSize = 20.sp,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.ExtraBold,
         fontFamily = FontFamily.Serif
     )
 }
@@ -334,7 +338,7 @@ fun ShowPoints(points: Int) {
         fontSize = 17.sp,
         fontWeight = FontWeight.Bold,
         fontFamily = FontFamily.Serif,
-        color = Color.White
+        color = Color(0xFF054A75)
     )
 }
 
@@ -349,9 +353,10 @@ fun Table(points: Int, lives: Int) {
     Surface(
         modifier = Modifier
             .height(46.dp)
-            .width(220.dp),
-        color = Color(0xFF707070),
-        shape = RoundedCornerShape(size = 3.dp),
+            .width(220.dp)
+        ,
+        color = Color(0xFFDCF9D7),
+        shape = RoundedCornerShape(size = 10.dp),
     ) {
         Column(modifier = Modifier.padding(start = 10.dp)) {
             ShowPoints(points = points)
@@ -395,8 +400,6 @@ fun SeeCircle(onClick: () -> Unit, hasToSpin: Boolean) {
                     onClick.invoke()
                 }
             },
-        alpha = 0.65f,
-
         )
 
 }

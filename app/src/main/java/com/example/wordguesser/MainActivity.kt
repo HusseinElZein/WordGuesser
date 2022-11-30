@@ -31,11 +31,11 @@ class MainActivity : ComponentActivity() {
                     val systemUiController = rememberSystemUiController()
                     SideEffect {
                         systemUiController.setStatusBarColor(
-                            color = Color.Transparent,
+                            color = Color(0xFF4FB14E),
                             darkIcons = false
                         )
                         systemUiController.setNavigationBarColor(
-                            color = Color(0xFFD2D2D2),
+                            color = Color(0xFF028B7C),
                             darkIcons = false
                         )
                     }

@@ -48,7 +48,7 @@ fun AgainLostGameUI(
     ) {
         Text(
             text = "You've lost :(",
-            color = Color(0xFFE48484),
+            color = Color(0xFFFFD985),
             fontSize = 55.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif
@@ -57,9 +57,9 @@ fun AgainLostGameUI(
         Text(
             text = "Points: ${uiState.points}\n" +
                     "word: ${uiState.chosenWord.word}",
-            color = Color(0xFFE08585),
+            color = Color(0xFFFFD985),
             fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.ExtraBold,
             fontFamily = FontFamily.Serif,
             textAlign = TextAlign.Center
         )
@@ -75,8 +75,8 @@ fun AgainLostGameUI(
                 navController.navigate(Screen.gameScreen.route)
             },
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(0xFFB9AC82),
-                contentColor = Color.White
+                backgroundColor = Color(0xFFDCF9D7),
+                contentColor = Color(0xFF054A75)
             ),
             modifier = Modifier.size(175.dp, 50.dp)
         )
@@ -107,9 +107,9 @@ fun AgainWonGameUI(
     ) {
         Text(
             text = "Congrats! You've won!",
-            color = Color(0xFF7CBE8A),
+            color = Color(0xFFF3FCF2),
             fontSize = 60.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.ExtraBold,
             fontFamily = FontFamily.Serif,
             textAlign = TextAlign.Center
         )
@@ -118,9 +118,9 @@ fun AgainWonGameUI(
             text = "Points: ${uiState.points}\n" +
                     "Word: ${uiState.chosenWord.word}\n" +
                     "Lives: ${uiState.lives}",
-            color = Color(0xFF56AC69),
+            color = Color(0xFFF3FCF2),
             fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.ExtraBold,
             fontFamily = FontFamily.Serif,
             textAlign = TextAlign.Center
         )
@@ -134,8 +134,8 @@ fun AgainWonGameUI(
                 navController.navigate(Screen.gameScreen.route)
             },
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(0xFFB9AC82),
-                contentColor = Color.White
+                backgroundColor = Color(0xFFDCF9D7),
+                contentColor = Color(0xFF054A75)
             ),
             modifier = Modifier.size(175.dp, 50.dp)
         )

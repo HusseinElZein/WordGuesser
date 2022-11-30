@@ -51,17 +51,17 @@ fun StartGameUI(navController: NavHostController) {
     ) {
         Text(
             text = "Lykkehjulet",
-            color = Color.White,
+            color = Color(0xFFFFFFFF),
             fontSize = 50.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.ExtraBold,
             fontFamily = FontFamily.Serif,
             textAlign = TextAlign.Center
         )
         Text(
             text = "By Hussein El-Zein, S211904",
-            color = Color.White,
+            color = Color(0xFFD8F3FF),
             fontSize = 15.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.ExtraBold,
             fontFamily = FontFamily.Serif,
             textAlign = TextAlign.Start
         )
@@ -79,22 +79,21 @@ fun StartGameUI(navController: NavHostController) {
                 contentDescription = "",
                 modifier = Modifier
                     .rotate(angle)
-                    .size(60.dp),
-                alpha = 0.65f,
+                    .size(60.dp)
             )
 
             Spacer(modifier = Modifier.size(5.dp))
 
             Button(
                 onClick = { navController.navigate(Screen.gameScreen.route) },
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF898773)),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFDCF9D7)),
                 modifier = Modifier.size(250.dp, 50.dp),
                 shape = RoundedCornerShape(100)
             )
             {
                 Text(
                     text = "Launch game",
-                    color = Color.White,
+                    color = Color(0xFF054A75),
                     fontSize = 23.sp,
                     fontWeight = FontWeight.Bold,
                     fontFamily = FontFamily.Serif,
@@ -109,8 +108,7 @@ fun StartGameUI(navController: NavHostController) {
                 contentDescription = "",
                 modifier = Modifier
                     .rotate(angle)
-                    .size(60.dp),
-                alpha = 0.65f,
+                    .size(60.dp)
             )
 
         }
