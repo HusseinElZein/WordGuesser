@@ -92,7 +92,6 @@ fun BuildWord(word: Word) {
     LazyVerticalGrid(
         cells = GridCells.Fixed(9),
         content = {
-
             itemsIndexed(word.letters) { index, letter ->
                 val foundWord by remember { mutableStateOf(letter) }
                 if (foundWord.isFound.value) Letter(letter.letter) else Letter("")
@@ -101,7 +100,6 @@ fun BuildWord(word: Word) {
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(3.dp),
         horizontalArrangement = Arrangement.spacedBy(3.dp),
-
         )
 }
 
