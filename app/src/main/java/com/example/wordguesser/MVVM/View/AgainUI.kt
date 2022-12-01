@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -25,10 +26,11 @@ import com.example.wordguesser.Components.InitialStartBackground
 import com.example.wordguesser.MVVM.ViewModel.InfoViewModel
 import com.example.wordguesser.MVVM.ViewModel.MainGameViewModel
 import com.example.wordguesser.Navigation.Screen
+import com.example.wordguesser.R
 
 @Preview(showBackground = true)
 @Composable
-fun AgainLostGameUIPreciew(){
+fun AgainLostGameUIPreciew() {
     AgainWonGameUI(navController = rememberNavController(), viewModel = InfoViewModel())
 }
 
@@ -48,7 +50,7 @@ fun AgainLostGameUI(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "You've lost :(",
+            text = stringResource(id = R.string.youvelost),
             color = Color(0xFFFFD985),
             fontSize = 55.sp,
             fontWeight = FontWeight.Bold,
@@ -56,16 +58,14 @@ fun AgainLostGameUI(
         )
 
         Text(
-            text = "Points: ${uiState.points}\n" +
-                    "word: ${uiState.chosenWord.word}",
+            text = stringResource(id = R.string.Points) + ": ${uiState.points}\n" +
+                    stringResource(id = R.string.word) + ": ${uiState.chosenWord.word}",
             color = Color(0xFFFFD985),
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
             fontFamily = FontFamily.Serif,
             textAlign = TextAlign.Center
         )
-
-
 
         Spacer(modifier = Modifier.size(40.dp))
 
@@ -84,7 +84,7 @@ fun AgainLostGameUI(
         )
         {
             Text(
-                text = "Play again",
+                text = stringResource(id = R.string.Playagain),
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif,
                 fontSize = 20.sp
@@ -108,7 +108,7 @@ fun AgainWonGameUI(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Congrats! You've won!",
+            text = stringResource(id = R.string.youvewon),
             color = Color(0xFFF3FCF2),
             fontSize = 60.sp,
             fontWeight = FontWeight.ExtraBold,
@@ -117,9 +117,9 @@ fun AgainWonGameUI(
         )
 
         Text(
-            text = "Points: ${uiState.points}\n" +
-                    "Word: ${uiState.chosenWord.word}\n" +
-                    "Lives: ${uiState.lives}",
+            text = stringResource(id = R.string.Points) + ": ${uiState.points}\n" +
+                    stringResource(id = R.string.word) + ": ${uiState.chosenWord.word}\n" +
+                    stringResource(id = R.string.Lives) + ": ${uiState.lives}",
             color = Color(0xFFF3FCF2),
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
@@ -144,7 +144,7 @@ fun AgainWonGameUI(
         )
         {
             Text(
-                text = "Play again",
+                text = stringResource(id = R.string.Playagain),
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif,
                 fontSize = 20.sp

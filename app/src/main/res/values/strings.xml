@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">s211904 Lykkehjulet</string>
+    <string name="lykkehjulet">Lykkehjulet</string>
+    <string name="myname">By Hussein El-Zein, S211904</string>
+    <string name="Launchgame">Launch game</string>
+    <string name="Continueplaying">Continue playing</string>
+    <string name="Restart">Restart</string>
+    <string name="Mainmenu">Main menu</string>
+    <string name="Pausescreen">Pause screen</string>
+    <string name="Points">Points</string>
+    <string name="Category">Category</string>
+
+    <string name="keyboardFirstRow">QWERTYUIOP</string>
+    <string name="keyboardSecondRow">ASDFGHJKL</string>
+    <string name="keyboardThirdRow">ZXCVBNM</string>
+
+
+    <string name="youvelost">You\'ve lost :(</string>
+    <string name="word">Word</string>
+    <string name="Playagain">Play again</string>
+
+    <string name="Lives">Lives</string>
+
+    <string name="youvewon">Congrats! You\'ve won!"</string>
+
 </resources>

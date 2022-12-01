@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -50,7 +51,7 @@ fun StartGameUI(navController: NavHostController) {
         verticalArrangement = Arrangement.Top
     ) {
         Text(
-            text = "Lykkehjulet",
+            text = stringResource(id = R.string.lykkehjulet),
             color = Color(0xFFFFFFFF),
             fontSize = 50.sp,
             fontWeight = FontWeight.ExtraBold,
@@ -58,7 +59,7 @@ fun StartGameUI(navController: NavHostController) {
             textAlign = TextAlign.Center
         )
         Text(
-            text = "By Hussein El-Zein, S211904",
+            text = stringResource(id = R.string.myname),
             color = Color(0xFFD8F3FF),
             fontSize = 15.sp,
             fontWeight = FontWeight.ExtraBold,
@@ -92,7 +93,7 @@ fun StartGameUI(navController: NavHostController) {
             )
             {
                 Text(
-                    text = "Launch game",
+                    text = stringResource(id = R.string.Launchgame),
                     color = Color(0xFF054A75),
                     fontSize = 23.sp,
                     fontWeight = FontWeight.Bold,

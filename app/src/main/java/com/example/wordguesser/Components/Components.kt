@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -54,7 +55,7 @@ fun InitialStartBackground() {
                 )
             )
     )
-    /*Image(
+    Image(
         painter = painterResource(id = R.drawable.bground),
         contentDescription = "",
         modifier = Modifier
@@ -62,10 +63,10 @@ fun InitialStartBackground() {
             .blur(4.dp)
             .size(600.dp),
         contentScale = ContentScale.Crop,
-        alpha = 0.65f
+        alpha = 0.07f
     )
 
-     */
+
 }
 
 /**
@@ -158,9 +159,9 @@ fun CreateKeyboard(
     mainGameViewModel: MainGameViewModel,
     hasToSpin: Boolean
 ) {
-    val keyboardFirstRow = "QWERTYUIOP"
-    val keyboardSecondRow = "ASDFGHJKL"
-    val keyboardThirdRow = "ZXCVBNM"
+    val keyboardFirstRow = stringResource(id = R.string.keyboardFirstRow)
+    val keyboardSecondRow = stringResource(id = R.string.keyboardSecondRow)
+    val keyboardThirdRow = stringResource(id = R.string.keyboardThirdRow)
 
     val keyboardArray = arrayOf(keyboardFirstRow, keyboardSecondRow, keyboardThirdRow)
 
@@ -218,11 +219,10 @@ fun CreateKeyboardPreview() {
     CreateKeyboard(mainGameViewModel = MainGameViewModel(), hasToSpin = true)
 }
 
-
 @Composable
 fun ShowCategory(category: String) {
     Text(
-        text = "Category: $category",
+        text = stringResource(id = R.string.Category)+": $category",
         color = Color(0xFF003400),
         fontSize = 20.sp,
         fontWeight = FontWeight.ExtraBold,
@@ -232,7 +232,7 @@ fun ShowCategory(category: String) {
 
 @Preview
 @Composable
-fun showCategoryPreview() {
+fun ShowCategoryPreview() {
     ShowCategory(category = "Religion")
 }
 
@@ -258,9 +258,9 @@ fun ShowSpin(spin: String, onClick: () -> Unit, hasToSpin: Boolean) {
             Text(
                 text = spin,
                 color = Color(0xFF000000),
-                fontSize = 28.sp,
+                fontSize = 23.sp,
                 fontWeight = FontWeight.ExtraBold,
-                fontFamily = FontFamily.Cursive
+                //fontFamily = FontFamily.Cursive
             )
         }
 
@@ -271,9 +271,9 @@ fun ShowSpin(spin: String, onClick: () -> Unit, hasToSpin: Boolean) {
             Text(
                 text = spin,
                 color = Color(0xFFFFFFFF),
-                fontSize = 26.sp,
+                fontSize = 24.sp,
                 fontWeight = FontWeight.ExtraBold,
-                fontFamily = FontFamily.Cursive,
+                //fontFamily = FontFamily.Cursive,
             )
         }
     }
@@ -284,34 +284,6 @@ fun ShowSpin(spin: String, onClick: () -> Unit, hasToSpin: Boolean) {
 fun ShowSpinPreview() {
     ShowSpin("1000", {}, true)
 }
-
-/*@Composable
-fun PressForSpin(onClick: () -> Unit, hasToSpin: Boolean) {
-    Button(
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            contentColor = Color(0xFFAC8923),
-            backgroundColor = Color(0xFFFFDD77),
-        ),
-        enabled = hasToSpin
-    ) {
-        Text(
-            text = "Spin", fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Serif
-        )
-    }
-}
-
- */
-
-/*@Preview
-@Composable
-fun PressForSpinPreview() {
-    PressForSpin({}, true)
-}
-
- */
 
 @Composable
 fun InsertHearts(lives: Int) {
@@ -340,9 +312,9 @@ fun InsertHeartsPreview() {
 @Composable
 fun ShowPoints(points: Int) {
     Text(
-        text = "Points: $points",
+        text = stringResource(id = R.string.Points)+": $points",
         fontSize = 17.sp,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.ExtraBold,
         fontFamily = FontFamily.Serif,
         color = Color(0xFF054A75)
     )

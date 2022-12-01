@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -42,7 +43,7 @@ fun PauseUI(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Pause screen",
+            text = stringResource(id = R.string.Pausescreen),
             color = Color(0xFFF5F5F5),
             fontSize = 55.sp,
             fontWeight = FontWeight.Bold,
@@ -76,7 +77,7 @@ fun PauseUI(
         )
         {
             Text(
-                text = "Continue playing",
+                text = stringResource(id = R.string.Continueplaying),
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif,
                 fontSize = 20.sp
@@ -100,7 +101,7 @@ fun PauseUI(
         )
         {
             Text(
-                text = "Restart",
+                text = stringResource(id = R.string.Restart),
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif,
                 fontSize = 20.sp
@@ -124,7 +125,7 @@ fun PauseUI(
         )
         {
             Text(
-                text = "Main menu",
+                text = stringResource(id = R.string.Mainmenu),
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif,
                 fontSize = 20.sp
