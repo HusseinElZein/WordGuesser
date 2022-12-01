@@ -24,7 +24,7 @@ class Word(
     var letters: MutableList<Letter> = emptyList<Letter>().toMutableList()
 ) {
     init {
-        for (i in 0..word.length - 1){
+        for (i in 0..word.length - 1) {
             letters.add(Letter(word.get(i).toString()))
         }
     }
@@ -40,8 +40,8 @@ class KeyLetter(
     var isClicked: MutableState<Boolean> = mutableStateOf(false)
 )
 
-class BuildWordList(){
-    fun getWordList(): List<Word>{
+class BuildWordList() {
+    fun getWordList(): List<Word> {
         return listOf(
             Word("Religion", "islam"),
             Word("Religion", "christianity"),
@@ -57,6 +57,22 @@ class BuildWordList(){
             Word("Car", "citroen"),
             Word("Car", "cadillac"),
             Word("Car", "lamborghini"),
+            Word("Car", "mercedes"),
+            Word("Car", "bmw"),
+            Word("Car", "volvo"),
+            Word("Car", "saab"),
+            Word("Car", "mini"),
+            Word("Car", "fiat"),
+            Word("Car", "lotus"),
+            Word("Car", "lexus"),
+            Word("Car", "bentley"),
+            Word("Car", "bughatti"),
+            Word("Car", "alfaromeo"),
+            Word("Car", "landrover"),
+            Word("Car", "porsche"),
+            Word("Car", "maserati"),
+            Word("Car", "opel"),
+
 
             Word("Country", "spain"),
             Word("Country", "denmark"),
@@ -74,28 +90,79 @@ class BuildWordList(){
             Word("Animal", "tiger"),
             Word("Animal", "panda"),
             Word("Animal", "fish"),
+            Word("Animal", "rhino"),
+            Word("Animal", "elephant"),
+            Word("Animal", "goat"),
+            Word("Animal", "donkey"),
 
             Word("Rapper", "tupac"),
             Word("Rapper", "gilli"),
             Word("Rapper", "popsmoke"),
-            Word("Long real word", "dilinoleoylphosphatidylcholinec"),
-            Word("Long real word", "dimyristoylphosphatidylcholine"),
-            Word("Long real word", "hexakosioihexekontahexaphobics"),
-            Word("Long real word", "pharyngolaryngoesophagectomies"),
+
+            Word("Actor", "jenniferlawrence"),
+            Word("Actor/Singer", "selenagomez"),
+            Word("Comedian", "davechapelle"),
+            Word("Comedian", "kevinhart"),
+
+
             Word("Long real word", "pseudopseudohypoparathyroidism"),
-            Word("Long real word", "quinquagintaquadringentilliard"),
             Word("Sport", "football"),
             Word("Sport", "soccer"),
             Word("Sport", "tennis"),
             Word("Sport", "swimming"),
             Word("Sport", "football"),
+            Word("Sport", "basketball"),
+            Word("Sport", "hockey"),
+            Word("Sport", "badminton"),
 
+            Word("Game", "supermariobros"),
+            Word("Game", "fifa"),
+            Word("Game", "valorant"),
+            Word("Game", "counterstrikeglobaloffensive"),
+            Word("Game", "grandtheftautosanandreas"),
+            Word("Game", "callofdutymodernwarfarethree"),
+            Word("Game", "leagueoflegends"),
 
             Word("Historical event", "worldwartwo"),
             Word("Historical event", "worldwarone"),
             Word("Historical event", "medievalperiod"),
             Word("Historical event", "roman"),
             Word("Historical event", "modernperiod"),
+
+            Word("Super hero", "theflash"),
+            Word("Super hero", "theamazingspiderman"),
+            Word("Super hero", "superman"),
+            Word("Super hero", "batman"),
+            Word("Super hero", "wonderwoman"),
+            Word("Super hero", "captainamerica"),
+            Word("Super hero", "batman"),
+
+            Word("Food", "lasagna"),
+            Word("Food", "bread"),
+            Word("Food", "shawarma"),
+            Word("Food", "pizza"),
+            Word("Food", "cheese"),
+            Word("Food", "banana"),
+            Word("Food", "rice"),
+
+            Word("Food brand", "oreo"),
+            Word("Food brand", "lays"),
+            Word("Food brand", "pringles"),
+            Word("Food brand", "nestle"),
+            Word("Food brand", "snickers"),
+            Word("Food brand", "galaxy"),
+            Word("Food brand", "lipton"),
+            Word("Food brand", "mcdonalds"),
+            Word("Food brand", "dunkindonuts"),
+            Word("Food brand", "wendys"),
+            Word("Food brand", "target"),
+            Word("Food brand", "subway"),
+            Word("Food brand", "benandjerrys"),
+            Word("Food brand", "dominos"),
+            Word("Food brand", "burgerking"),
+            Word("Food brand", "pizzahut"),
+            Word("Food brand", "tacobell"),
+            Word("Food brand", "droetker"),
         )
     }
 }
